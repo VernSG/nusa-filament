@@ -61,22 +61,58 @@ config/nusa-filament.php
 
 ## Quick Start
 
-Use `NusaAddress` in a Filament resource form when you want the complete address block:
+Add `NusaAddress` to a Filament resource form when your model needs a complete Indonesian address block.
+
+For example, after generating a `Customer` resource:
+
+```bash
+php artisan make:filament-resource Customer
+```
+
+open the generated form schema file:
+
+```text
+app/Filament/Resources/Customers/Schemas/CustomerForm.php
+```
+
+Then add `NusaAddress::make()` to the form components:
 
 ```php
+<?php
+
+namespace App\Filament\Resources\Customers\Schemas;
+
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 use Vernsg\NusaFilament\Forms\Components\NusaAddress;
 
-public static function form(Schema $schema): Schema
+class CustomerForm
 {
-    return $schema
-        ->components([
-            NusaAddress::make(),
-        ]);
+    public static function configure(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                TextInput::make('name')
+                    ->required(),
+
+                NusaAddress::make(),
+            ]);
+    }
 }
 ```
 
-By default, the component uses these model attributes:
+This renders a complete Indonesian address form with dependent selects for:
+
+```text
+Alamat
+Provinsi
+Kabupaten/Kota
+Kecamatan
+Desa/Kelurahan
+Kode Pos
+```
+
+By default, the component stores its values in these model attributes:
 
 ```text
 address_line
@@ -86,6 +122,28 @@ district_code
 village_code
 postal_code
 ```
+
+Make sure that your model table contains matching database columns before saving the form.
+
+### Database Columns
+
+Example migration for a `customers` table:
+
+```php
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+Schema::table('customers', function (Blueprint $table): void {
+    $table->text('address_line')->nullable();
+    $table->string('province_code')->nullable();
+    $table->string('regency_code')->nullable();
+    $table->string('district_code')->nullable();
+    $table->string('village_code')->nullable();
+    $table->string('postal_code', 10)->nullable();
+});
+```
+
+The package stores administrative region codes instead of region names. Use the provided table columns and infolist entries when you need to display readable region names.
 
 ## Database Columns
 
