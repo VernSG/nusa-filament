@@ -1,0 +1,7 @@
+/vendor
+/.phpunit.cache
+/.pest
+/.phpstan.cache
+/.php-cs-fixer.cache
+.DS_Store
+

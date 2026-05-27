@@ -1,0 +1,71 @@
+{
+    "name": "vernsg/nusa-filament",
+    "description": "Ready-to-use Filament 4 components for creasi/laravel-nusa Indonesian administrative regions.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "filament",
+        "filamentphp",
+        "laravel",
+        "laravel-nusa",
+        "indonesia",
+        "province",
+        "regency",
+        "district",
+        "village"
+    ],
+    "homepage": "https://github.com/vernsg/nusa-filament",
+    "support": {
+        "issues": "https://github.com/vernsg/nusa-filament/issues",
+        "source": "https://github.com/vernsg/nusa-filament"
+    },
+    "autoload": {
+        "psr-4": {
+            "Vernsg\\NusaFilament\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Vernsg\\NusaFilament\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^8.2",
+        "creasi/laravel-nusa": "^0.1.18",
+        "filament/forms": "^4.0",
+        "filament/infolists": "^4.0",
+        "filament/tables": "^4.0",
+        "illuminate/contracts": "^11.0|^12.0",
+        "illuminate/database": "^11.0|^12.0",
+        "illuminate/support": "^11.0|^12.0",
+        "spatie/laravel-package-tools": "^1.16"
+    },
+    "require-dev": {
+        "larastan/larastan": "^3.0",
+        "laravel/pint": "^1.18",
+        "orchestra/testbench": "^9.0|^10.0",
+        "pestphp/pest": "^3.0",
+        "pestphp/pest-plugin-laravel": "^3.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Vernsg\\NusaFilament\\NusaFilamentServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "analyse": "php -d memory_limit=512M vendor/bin/phpstan analyse",
+        "format": "vendor/bin/pint",
+        "format:test": "vendor/bin/pint --test",
+        "test": "vendor/bin/pest"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        },
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
