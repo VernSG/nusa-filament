@@ -14,6 +14,14 @@ class NusaOptions
     /**
      * @return array<string, string>
      */
+    public static function options(NusaRegion $region, ?string $parentCode = null): array
+    {
+        return self::search($region, '', $parentCode);
+    }
+
+    /**
+     * @return array<string, string>
+     */
     public static function search(NusaRegion $region, string $search = '', ?string $parentCode = null): array
     {
         return self::query($region, $parentCode)

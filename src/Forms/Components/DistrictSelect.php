@@ -26,8 +26,12 @@ class DistrictSelect extends Select
             ->label(NusaConfig::label('district'))
             ->native(NusaConfig::native())
             ->searchable()
+            ->preload()
             ->live()
             ->disabled(fn (Get $get): bool => blank($get($this->regencyField)))
+            ->options(fn (Get $get): array => filled($get($this->regencyField))
+                ? NusaOptions::options(NusaRegion::District, $get($this->regencyField))
+                : [])
             ->getSearchResultsUsing(fn (string $search, Get $get): array => NusaOptions::search(
                 NusaRegion::District,
                 $search,

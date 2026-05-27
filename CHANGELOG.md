@@ -6,7 +6,10 @@ This project follows semantic versioning where possible.
 
 ## Unreleased
 
-- Initial public documentation for package usage, contribution, security, and release workflow.
+## 0.1.1
+
+- Improved dependent select UX by preloading options for the selected parent region.
+- Added default option loading while keeping remote search support.
 
 ## 0.1.0
 

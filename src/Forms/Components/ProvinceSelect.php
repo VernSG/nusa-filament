@@ -28,7 +28,9 @@ class ProvinceSelect extends Select
             ->label(NusaConfig::label('province'))
             ->native(NusaConfig::native())
             ->searchable()
+            ->preload()
             ->live()
+            ->options(fn (): array => NusaOptions::options(NusaRegion::Province))
             ->getSearchResultsUsing(fn (string $search): array => NusaOptions::search(NusaRegion::Province, $search))
             ->getOptionLabelUsing(fn (mixed $value): ?string => NusaOptions::label(NusaRegion::Province, $value))
             ->afterStateUpdated(function (Set $set): void {

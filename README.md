@@ -121,7 +121,7 @@ VillageSelect::make('village_code')
     ->fillPostalCode('postal_code');
 ```
 
-The selects are searchable and load options remotely, so large village datasets are not preloaded into the page.
+The selects preload the first matching options for the current parent region and remain searchable. For example, after selecting a province, the regency select immediately shows that province's regencies and still supports remote search.
 
 ## Tables
 
