@@ -58,7 +58,7 @@
         "analyse": "php -d memory_limit=512M vendor/bin/phpstan analyse",
         "format": "vendor/bin/pint",
         "format:test": "vendor/bin/pint --test",
-        "test": "vendor/bin/pest"
+        "test": "vendor/bin/pest --configuration=phpunit.xml.dist"
     },
     "config": {
         "allow-plugins": {
