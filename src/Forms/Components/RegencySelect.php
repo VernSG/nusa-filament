@@ -29,8 +29,12 @@ class RegencySelect extends Select
             ->label(NusaConfig::label('regency'))
             ->native(NusaConfig::native())
             ->searchable()
+            ->preload()
             ->live()
             ->disabled(fn (Get $get): bool => blank($get($this->provinceField)))
+            ->options(fn (Get $get): array => filled($get($this->provinceField))
+                ? NusaOptions::options(NusaRegion::Regency, $get($this->provinceField))
+                : [])
             ->getSearchResultsUsing(fn (string $search, Get $get): array => NusaOptions::search(
                 NusaRegion::Regency,
                 $search,

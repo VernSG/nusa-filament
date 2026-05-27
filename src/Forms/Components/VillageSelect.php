@@ -25,8 +25,12 @@ class VillageSelect extends Select
             ->label(NusaConfig::label('village'))
             ->native(NusaConfig::native())
             ->searchable()
+            ->preload()
             ->live()
             ->disabled(fn (Get $get): bool => blank($get($this->districtField)))
+            ->options(fn (Get $get): array => filled($get($this->districtField))
+                ? NusaOptions::options(NusaRegion::Village, $get($this->districtField))
+                : [])
             ->getSearchResultsUsing(fn (string $search, Get $get): array => NusaOptions::search(
                 NusaRegion::Village,
                 $search,
