@@ -25,6 +25,7 @@ class DistrictSelect extends Select
         $this
             ->label(NusaConfig::label('district'))
             ->native(NusaConfig::native())
+            ->position(NusaConfig::selectPosition())
             ->searchable()
             ->preload()
             ->live()

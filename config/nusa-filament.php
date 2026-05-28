@@ -22,4 +22,6 @@ return [
     'search_limit' => 50,
 
     'native' => false,
+
+    'select_position' => 'bottom',
 ];

@@ -27,6 +27,7 @@ class ProvinceSelect extends Select
         $this
             ->label(NusaConfig::label('province'))
             ->native(NusaConfig::native())
+            ->position(NusaConfig::selectPosition())
             ->searchable()
             ->preload()
             ->live()

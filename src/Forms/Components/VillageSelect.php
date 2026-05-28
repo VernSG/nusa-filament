@@ -24,6 +24,7 @@ class VillageSelect extends Select
         $this
             ->label(NusaConfig::label('village'))
             ->native(NusaConfig::native())
+            ->position(NusaConfig::selectPosition())
             ->searchable()
             ->preload()
             ->live()

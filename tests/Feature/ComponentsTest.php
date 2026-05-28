@@ -16,6 +16,13 @@ it('creates form components with default field names', function (): void {
         ->and(VillageSelect::make('village_code'))->toBeInstanceOf(VillageSelect::class);
 });
 
+it('opens region select dropdowns below the field by default', function (): void {
+    expect(ProvinceSelect::make('province_code')->getPosition())->toBe('bottom')
+        ->and(RegencySelect::make('regency_code')->getPosition())->toBe('bottom')
+        ->and(DistrictSelect::make('district_code')->getPosition())->toBe('bottom')
+        ->and(VillageSelect::make('village_code')->getPosition())->toBe('bottom');
+});
+
 it('creates the address form group', function (): void {
     expect(NusaAddress::make())->toBeInstanceOf(NusaAddress::class);
 });

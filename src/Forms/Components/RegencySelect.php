@@ -28,6 +28,7 @@ class RegencySelect extends Select
         $this
             ->label(NusaConfig::label('regency'))
             ->native(NusaConfig::native())
+            ->position(NusaConfig::selectPosition())
             ->searchable()
             ->preload()
             ->live()

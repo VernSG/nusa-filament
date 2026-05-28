@@ -39,4 +39,11 @@ class NusaConfig
     {
         return (bool) config('nusa-filament.native', false);
     }
+
+    public static function selectPosition(): ?string
+    {
+        $position = config('nusa-filament.select_position', 'bottom');
+
+        return blank($position) ? null : (string) $position;
+    }
 }

@@ -25,7 +25,7 @@ Dependent selects immediately display available child regions after a parent reg
 - Location filter for province, regency, district, and village fields.
 - Infolist entries for readable address display.
 - Laravel validation rules for valid region codes and address hierarchy consistency.
-- Configurable labels, field names, search limit, and native select behavior.
+- Configurable labels, field names, search limit, native select behavior, and dropdown position.
 
 ## Compatibility
 
@@ -47,7 +47,7 @@ composer require vernsg/nusa-filament
 
 Laravel package auto-discovery registers the service provider automatically.
 
-Publish the configuration file when you need to customize field names, labels, search limits, or native select behavior:
+Publish the configuration file when you need to customize field names, labels, search limits, native select behavior, or dropdown position:
 
 ```bash
 php artisan vendor:publish --tag=nusa-filament-config
@@ -364,6 +364,8 @@ return [
     'search_limit' => 50,
 
     'native' => false,
+
+    'select_position' => 'bottom',
 ];
 ```
 
