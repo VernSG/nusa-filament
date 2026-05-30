@@ -11,7 +11,7 @@ Use this package to add cascading **Provinsi -> Kabupaten/Kota -> Kecamatan -> D
 
 ## Preview
 
-![Nusa Filament address form preview](docs/images/discordtes.png)
+![Nusa Filament address form preview](docs/images/preview.jpg)
 
 Child regions are displayed as soon as a parent region is selected. Remote search remains available for filtering larger option lists.
 
