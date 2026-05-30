@@ -5,37 +5,33 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/vernsg/nusa-filament.svg?style=flat-square)](https://packagist.org/packages/vernsg/nusa-filament)
 [![License](https://img.shields.io/packagist/l/vernsg/nusa-filament.svg?style=flat-square)](LICENSE.md)
 
-Ready-to-use Filament 4 components for Indonesian administrative regions, powered by [`creasi/laravel-nusa`](https://github.com/creasico/laravel-nusa).
+Nusa Filament provides Filament 4 components for working with Indonesian administrative regions in Laravel applications. It is powered by [`creasi/laravel-nusa`](https://github.com/creasico/laravel-nusa), which supplies the underlying region data and lookup support.
 
-`vernsg/nusa-filament` is a small companion package and practical integration example for using Laravel Nusa inside Filament panels. It provides cascading **Provinsi -> Kabupaten/Kota -> Kecamatan -> Desa/Kelurahan** selects, automatic postal code filling, readable table columns, location filters, infolist entries, and validation rules.
+Use this package to add cascading **Provinsi -> Kabupaten/Kota -> Kecamatan -> Desa/Kelurahan** selects to Filament forms. It also includes postal code autofill, table columns, filters, infolist entries, and validation rules for applications that store Indonesian address data.
 
 ## Preview
 
 ![Nusa Filament address form preview](docs/images/discordtes.png)
 
-Dependent selects immediately display child regions after a parent region is selected. Remote search remains available for larger option lists.
+Child regions are displayed as soon as a parent region is selected. Remote search remains available for filtering larger option lists.
 
 ## Features
 
-- Cascading Indonesian administrative region selects for Filament forms.
-- Complete address form group with sensible default field names.
-- Immediate child options after selecting a parent region.
-- Remote search for filtering larger region lists.
-- Automatic postal code filling from the selected village.
-- Table columns and infolist entries that display readable region names from stored codes.
-- Dependent table filter for province, regency, district, and village fields.
-- Laravel validation rules for valid region codes and address hierarchy consistency.
-- Configurable field names, labels, search limit, native select behavior, and dropdown position.
+- **Form components:** cascading province, regency, district, and village selects, available individually or as a complete address group with sensible default field names.
+- **Dependent options:** child regions are loaded immediately after their parent region is selected, with remote search for larger option lists.
+- **Postal code autofill:** the postal code field can be filled automatically from the selected village.
+- **Display components:** table columns and infolist entries resolve stored region codes to readable names.
+- **Table filtering:** a dependent location filter supports province, regency, district, and village fields.
+- **Validation:** Laravel validation rules check individual region codes and address hierarchy consistency.
+- **Configuration:** field names, labels, search limit, native select behavior, and dropdown position can be customized.
 
-## Compatibility
+## Requirements
 
 | Package Version | PHP | Laravel | Filament |
 |---|---:|---:|---:|
 | `^0.1` | `^8.2` | `^11.0 \| ^12.0` | `^4.0` |
 
-This package also requires the PHP `sqlite3` extension.
-
-Laravel Nusa stores its administrative region dataset in SQLite, so the `sqlite3` extension must be enabled in the application that installs this package.
+The PHP `sqlite3` extension is also required. Laravel Nusa stores its administrative region dataset in SQLite, so the extension must be enabled in the application that installs this package.
 
 ## Installation
 
@@ -47,7 +43,7 @@ composer require vernsg/nusa-filament
 
 Laravel package auto-discovery registers the service provider automatically.
 
-Publish the configuration file only when you need to customize field names, labels, search limits, native select behavior, or dropdown position:
+Publish the configuration file if you need to customize field names, labels, the search limit, native select behavior, or dropdown position:
 
 ```bash
 php artisan vendor:publish --tag=nusa-filament-config
@@ -59,9 +55,11 @@ The published configuration file will be available at:
 config/nusa-filament.php
 ```
 
-## Quick Start
+## Usage
 
-Add `NusaAddress` to a Filament resource form when your model needs a complete Indonesian address block.
+### Quick Start
+
+Add `NusaAddress` to a Filament resource form to render a complete Indonesian address block.
 
 ```php
 <?php
@@ -87,7 +85,7 @@ class CustomerForm
 }
 ```
 
-This renders a complete Indonesian address form with:
+The component renders these fields:
 
 ```text
 Alamat
@@ -109,11 +107,11 @@ village_code
 postal_code
 ```
 
-Make sure your model table contains matching nullable columns before saving the form.
+Ensure that your model table contains matching nullable columns before saving the form.
 
-## Database Columns
+### Database Columns
 
-This package stores administrative region **codes**, not region names. Use the provided table columns and infolist entries when you need to display readable region names.
+The package stores administrative region **codes**, not region names. Use the provided table columns and infolist entries to display readable region names.
 
 Example migration:
 
@@ -131,20 +129,20 @@ Schema::table('customers', function (Blueprint $table): void {
 });
 ```
 
-## How Dependent Selects Work
+### Dependent Select Behavior
 
-The address selects are dependent and reactive by default:
+The address selects are reactive and dependent by default:
 
-- selecting a province loads its regencies;
-- selecting a regency loads its districts;
-- selecting a district loads its villages;
-- selecting a village can automatically fill the postal code field.
+- Selecting a province loads its regencies.
+- Selecting a regency loads its districts.
+- Selecting a district loads its villages.
+- Selecting a village can automatically fill the postal code field.
 
-Options are immediately available after a parent region is selected. For example, after selecting a province, the regency dropdown displays matching regencies without requiring the user to type first.
+Options are available immediately after a parent region is selected. For example, after selecting a province, the regency dropdown displays the matching regencies without requiring the user to type first.
 
 Remote search remains enabled for filtering larger option lists.
 
-## Naming Convention
+### Naming Convention
 
 The package uses English names in its PHP API while displaying Indonesian labels by default:
 
@@ -155,9 +153,9 @@ The package uses English names in its PHP API while displaying Indonesian labels
 | Kecamatan | District |
 | Desa/Kelurahan | Village |
 
-## Forms
+### Form Components
 
-### Full Address Group
+#### Full Address Group
 
 ```php
 use Vernsg\NusaFilament\Forms\Components\NusaAddress;
@@ -185,9 +183,9 @@ NusaAddress::make()
     ->withoutPostalCode();
 ```
 
-### Individual Selects
+#### Individual Selects
 
-Use the individual components when you want to place fields manually:
+Use the individual components to place fields manually:
 
 ```php
 use Vernsg\NusaFilament\Forms\Components\DistrictSelect;
@@ -208,7 +206,7 @@ VillageSelect::make('village_code')
     ->fillPostalCode('postal_code');
 ```
 
-## Tables
+### Table Components
 
 Display readable region names from stored codes:
 
@@ -248,9 +246,9 @@ NusaLocationFilter::make('shipping_location')
     ->villageField('shipping_village_code');
 ```
 
-## Infolists
+### Infolist Components
 
-Use the complete address entry:
+Display a complete address entry:
 
 ```php
 use Vernsg\NusaFilament\Infolists\Components\NusaAddressEntry;
@@ -258,7 +256,7 @@ use Vernsg\NusaFilament\Infolists\Components\NusaAddressEntry;
 NusaAddressEntry::make();
 ```
 
-Or use individual entries:
+Or display individual entries:
 
 ```php
 use Vernsg\NusaFilament\Infolists\Components\DistrictEntry;
@@ -272,9 +270,9 @@ DistrictEntry::make('district_code');
 VillageEntry::make('village_code');
 ```
 
-## Validation
+### Validation
 
-Use the provided validation rules to validate individual region codes and ensure the selected address hierarchy is valid:
+Use the provided rules to validate individual region codes and confirm that the selected address hierarchy is consistent:
 
 ```php
 use Vernsg\NusaFilament\Rules\NusaRules;
@@ -337,11 +335,11 @@ return [
 
 `select_position` defaults to `bottom` so region dropdowns do not flip upward and cover previous fields on long forms. Set it to `null` to use Filament's default auto-placement behavior.
 
-## Relationship To Laravel Nusa
+## Relationship to Laravel Nusa
 
-This package does not replace Laravel Nusa. It uses `creasi/laravel-nusa` as the data and region lookup layer, then adds Filament-specific UI components around it.
+This package does not replace Laravel Nusa. It uses `creasi/laravel-nusa` as its data and region lookup layer, then adds Filament-specific components around it.
 
-It is intended to be useful as:
+It can be used as:
 
 - a ready-to-install Filament integration for Laravel applications;
 - a concrete example of how Laravel Nusa can power admin panel address forms;
